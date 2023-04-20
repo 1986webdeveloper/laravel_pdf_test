@@ -17,6 +17,8 @@ class ConfigurationUrlParser
         'postgres' => 'pgsql',
         'postgresql' => 'pgsql',
         'sqlite3' => 'sqlite',
+        'redis' => 'tcp',
+        'rediss' => 'tls',
     ];
 
     /**
@@ -65,9 +67,7 @@ class ConfigurationUrlParser
             'port' => $url['port'] ?? null,
             'username' => $url['user'] ?? null,
             'password' => $url['pass'] ?? null,
-        ], function ($value) {
-            return ! is_null($value);
-        });
+        ], fn ($value) => ! is_null($value));
     }
 
     /**
@@ -168,7 +168,7 @@ class ConfigurationUrlParser
     }
 
     /**
-     * Get all of the current drivers aliases.
+     * Get all of the current drivers' aliases.
      *
      * @return array
      */
